@@ -1,0 +1,142 @@
+"""
+古月创意商业门头设计AI提示词生成器
+生成20组可落地施工的转角式门头设计提示词
+"""
+
+class DoorwayPromptGenerator:
+    """门头设计提示词生成器"""
+    
+    def __init__(self):
+        self.scene_elements = [
+            "白天自然光照，街道转角位置",
+            "日间清晰光线，建筑转角街景",
+            "午间阳光充足，街角建筑群",
+            "晴天自然采光，城市转角处"
+        ]
+        
+        self.design_styles = [
+            "转角式创意门头，双面设计，视觉延伸感强",
+            "转角建筑充分利用，连贯造型，网红吸睛",
+            "建筑转角双面展示，融合式造型，视觉冲击力强",
+            "转角造型设计，多面展示，流线型连贯美感"
+        ]
+        
+        self.materials = [
+            "铝单板转印工艺",
+            "GRC构件装饰",
+            "发光冲孔板设计",
+            "亚克力通体发光字",
+            "艺术涂料表面"
+        ]
+        
+        self.lighting = [
+            "转角轮廓灯带，嵌入式线条灯，日间清晰见光",
+            "转角轮廓光带，LED线性灯，白天效果突显",
+            "转角照明设计，嵌入发光线条，日间视觉清晰",
+            "转角灯光勾勒，隐藏式灯带，昼间效果优秀"
+        ]
+        
+        self.perspective = [
+            "完整展示建筑转角关系，正面平视视角略带转角透视，无遮挡",
+            "充分展现转角结构，前视平视加转角深度感，清晰无障碍",
+            "转角关系完全呈现，正立面平视融合透视效果，视野开阔",
+            "建筑转角完全显露，平视角度融入转角纵深，清晰通透"
+        ]
+        
+        self.quality = "8K高清，商业写实效果图，细节丰富，色彩自然，可直接施工参考"
+    
+    def generate_prompts(self, industry: str, store_name: str, main_business: str, slogan: str) -> list:
+        """
+        生成20组不重复的转角门头提示词
+        
+        Args:
+            industry: 店铺行业（如：奶茶、餐饮、服装等）
+            store_name: 品牌店名
+            main_business: 主营品类描述
+            slogan: 创意标语
+        
+        Returns:
+            包含20组提示词的列表
+        """
+        prompts = []
+        
+        base_template = (
+            "{scene}\n"
+            "建筑视角：{perspective}\n"
+            "设计风格：{style}\n"
+            "门头文字：{text}\n"
+            "材质工艺：{material}\n"
+            "灯光设计：{lighting}\n"
+            "画质标准：{quality}"
+        )
+        
+        for i in range(20):
+            scene = self.scene_elements[i % len(self.scene_elements)]
+            style = self.design_styles[i % len(self.design_styles)]
+            material = self.materials[i % len(self.materials)]
+            lighting = self.lighting[i % len(self.lighting)]
+            perspective = self.perspective[i % len(self.perspective)]
+            
+            # 创意文字组合（每组不同）
+            text_variations = [
+                f"{store_name} | {main_business} | {slogan}",
+                f"{store_name}·{main_business}·{slogan}",
+                f"{store_name} {main_business} {slogan}",
+                f"{store_name}/{main_business}/{slogan}",
+            ]
+            text = text_variations[i % len(text_variations)]
+            
+            prompt = base_template.format(
+                scene=scene,
+                perspective=perspective,
+                style=style,
+                text=text,
+                material=material,
+                lighting=lighting,
+                quality=self.quality
+            )
+            
+            prompts.append({提示.追加({
+                "id": i + 1,
+                "prompt": prompt"提示": 提示"prompt": 提示"提示": 提示
+            })
+        
+        return prompts返回提示返回提示返回提示
+    
+    def output_prompts(输出提示(self, prompts: list) -> str:-> 字符串:
+        """格式化输出提示词"""
+        output = []输出 =[]输出 =[]输出 =[]
+        for对于 item in在 prompts:对于项在提示:对于 item 在 prompts:对于项在提示:对于 item 在 prompts:对于项在提示:对于 item 在 prompts:对于项在提示:
+            output.append(f"【第 {item['id']} 组提示词】\n{item['prompt']}\n")
+        
+        return "\n".join(output)返回 " ".join(输出)
+
+
+def main():
+    """主程序示例"""
+    generator = DoorwayPromptGenerator()生成器 =门道提示生成器()
+    
+    # 用户输入示例
+    industry = "奶茶店"
+    store_name = "茶韵轩"店名 =“茶韵轩”
+    main_business = "新鲜奶茶·芋圆饮品"主营业务 ="新鲜奶茶·芋圆饮品"主营 =“新鲜奶茶·芋圆饮品”
+    slogan = "一杯好茶，回味无穷"标语 =“一杯好茶，回味无穷”标语 =“一杯好茶，回味无穷”宣传语 =“一杯好茶，回味无穷”
+    
+    print(f"正在为 '{store_name}' ({industry}) 生成20组转角门头设计提示词...\n")
+    
+    # 生成提示词
+    prompts = generator.generate_prompts(industry, store_name, main_business, slogan)提示 = 生成器.生成提示(行业, 店铺名称, 主营业务, 口号)
+    
+    # 输出结果
+    result = generator.output_prompts(prompts)
+    print(result)
+    
+    # 可选：保存到文件
+    with open(f"{store_name}_门头提示词.txt", "w", encoding="utf-8") as f:
+        f.write(result)f.写(结果)
+    
+    print(f"\n✓ 已生成20组提示词，已保存到 '{store_name}_门头提示词.txt'")
+
+
+if __name__ == "__main__":如果 __name__ == "__main__":
+    main()主()主()主()
